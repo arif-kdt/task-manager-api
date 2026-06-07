@@ -5,6 +5,8 @@ from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from .models import Task
 from .serializers import RegisterSerializer, UserSerializer, TaskSerializer
+from django.db.models import Count
+
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -44,3 +46,23 @@ class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Task.objects.filter(user=self.request.user)
+
+class TaskStatsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        tasks = Task.objects.filter(user=request.user)
+        stats = {
+            'total': tasks.count(),
+            'by_status': {
+                'pending': tasks.filter(status='pending').count(),
+                'in_progress': tasks.filter(status='in_progress').count(),
+                'completed': tasks.filter(status='completed').count(),
+            },
+            'by_priority': {
+                'low': tasks.filter(priority='low').count(),
+                'medium': tasks.filter(priority='medium').count(),
+                'high': tasks.filter(priority='high').count(),
+            }
+        }
+        return Response(stats)
