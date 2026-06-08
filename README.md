@@ -2,6 +2,20 @@
 
 A RESTful API for task management built with Django and Django REST Framework. Features JWT authentication, task CRUD operations, filtering, and search.
 
+## 🌐 Live API
+
+Base URL: `https://task-manager-api-production-ba15.up.railway.app/api/`
+
+| Endpoint | Method | Auth Required |
+|----------|--------|---------------|
+| `/auth/register/` | POST | No |
+| `/auth/login/` | POST | No |
+| `/auth/refresh/` | POST | No |
+| `/auth/profile/` | GET | Yes |
+| `/tasks/` | GET, POST | Yes |
+| `/tasks/<id>/` | GET, PATCH, DELETE | Yes |
+| `/tasks/stats/` | GET | Yes |
+
 ## 🛠 Tech Stack
 
 - **Backend:** Python, Django 6, Django REST Framework
