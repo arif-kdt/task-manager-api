@@ -99,3 +99,4 @@ STORAGES = {
     },
 }
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+CSRF_TRUSTED_ORIGINS = ['https://task-manager-api-production-ba15.up.railway.app']
